@@ -13,7 +13,7 @@ function Users2({ size, className }) {
   );
 }
 
-function FloatingInput({ label, type = 'text', value, onChange, required = true, ...props }) {
+function FloatingInput({ label, type = 'text', value, onChange, required = true, placeholder, ...props }) {
   const [focused, setFocused] = useState(false);
   const isFloating = focused || value !== '' || type === 'date';
 
@@ -36,6 +36,7 @@ function FloatingInput({ label, type = 'text', value, onChange, required = true,
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         required={required}
+        placeholder={focused ? placeholder : ''}
         className="w-full bg-transparent border-b border-white/10 border-t-0 border-x-0 rounded-none py-2.5 px-0 focus:border-[#C9A84C] focus:bg-transparent focus:ring-0 focus:shadow-none transition-all duration-300 outline-none text-white font-body text-sm"
         style={{ caretColor: '#C9A84C' }}
         {...props}
