@@ -54,10 +54,10 @@ export default function Reviews() {
         </p>
         
         {/* Rating hero */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12">
           <div className="flex flex-col items-center">
-            <p className="font-display text-7xl md:text-8xl font-light text-white leading-none">4.9</p>
-            <div className="flex gap-1 justify-center mt-2">{Array.from({length:5}).map((_,i)=><Star key={i} size={16} className="fill-amber-400 text-amber-400" />)}</div>
+            <p className="font-display text-7xl md:text-8xl font-light text-white leading-tight">4.9</p>
+            <div className="flex gap-1 justify-center mt-3">{Array.from({length:5}).map((_,i)=><Star key={i} size={16} className="fill-amber-400 text-amber-400" />)}</div>
           </div>
           <div className="hidden sm:block gold-line-v h-20 opacity-20" />
           <div className="text-center sm:text-left">
@@ -66,7 +66,7 @@ export default function Reviews() {
             <p className="font-body text-xs text-white/30">Google Reviews</p>
           </div>
         </div>
-        <h2 className="font-display font-light text-4xl md:text-5xl text-white tracking-[-0.02em] mt-4">Real People. Real Coffee.</h2>
+        <h2 className="font-display font-light text-4xl md:text-5xl text-white tracking-[-0.02em] mt-8">Real People. Real Coffee.</h2>
       </div>
 
       {/* Cards */}
