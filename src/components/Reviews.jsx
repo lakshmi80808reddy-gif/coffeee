@@ -18,15 +18,17 @@ function ReviewCard({ review, index }) {
   return (
     <div ref={ref} className={`pop-scale ${vis ? 'open' : ''}`} style={{ transitionDelay: `${index * 120}ms` }}>
       <div className="glass review-card rounded-3xl p-7 h-full flex flex-col">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c89010] to-[#8a6008] flex items-center justify-center font-display text-black font-semibold text-lg">
-            {review.name[0]}
+        <div className="flex items-start justify-between gap-3 mb-4">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c89010] to-[#8a6008] flex items-center justify-center font-display text-black font-semibold text-lg shrink-0">
+              {review.name[0]}
+            </div>
+            <div className="min-w-0">
+              <p className="font-body text-sm font-semibold text-white truncate">{review.name}</p>
+              <p className="font-body text-[10px] text-white/30">{review.ago}</p>
+            </div>
           </div>
-          <div>
-            <p className="font-body text-sm font-semibold text-white">{review.name}</p>
-            <p className="font-body text-[10px] text-white/30">{review.ago}</p>
-          </div>
-          <div className="ml-auto"><StarRow /></div>
+          <div className="shrink-0 pt-1"><StarRow /></div>
         </div>
         <p className="font-body text-sm text-white/55 leading-[1.8] flex-1 italic">"{review.text}"</p>
         <div className="flex items-center gap-2 mt-5 pt-4 border-t border-white/[0.05]">
@@ -52,19 +54,19 @@ export default function Reviews() {
         </p>
         
         {/* Rating hero */}
-        <div className="flex items-center justify-center gap-4 mb-5">
-          <div>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
+          <div className="flex flex-col items-center">
             <p className="font-display text-7xl md:text-8xl font-light text-white leading-none">4.9</p>
-            <div className="flex gap-1 justify-center mt-1">{Array.from({length:5}).map((_,i)=><Star key={i} size={16} className="fill-amber-400 text-amber-400" />)}</div>
+            <div className="flex gap-1 justify-center mt-2">{Array.from({length:5}).map((_,i)=><Star key={i} size={16} className="fill-amber-400 text-amber-400" />)}</div>
           </div>
-          <div className="gold-line-v h-20 opacity-20" />
-          <div className="text-left">
+          <div className="hidden sm:block gold-line-v h-20 opacity-20" />
+          <div className="text-center sm:text-left">
             <p className="font-body text-sm text-white/40 mb-1">Based on</p>
-            <p className="font-display text-3xl text-[#c89010]">2,400+</p>
+            <p className="font-display text-3xl text-[#c89010] font-semibold">2,400+</p>
             <p className="font-body text-xs text-white/30">Google Reviews</p>
           </div>
         </div>
-        <h2 className="font-display font-light text-4xl md:text-5xl text-white tracking-[-0.02em]">Real People. Real Coffee.</h2>
+        <h2 className="font-display font-light text-4xl md:text-5xl text-white tracking-[-0.02em] mt-4">Real People. Real Coffee.</h2>
       </div>
 
       {/* Cards */}
