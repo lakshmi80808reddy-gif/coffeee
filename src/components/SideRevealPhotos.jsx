@@ -18,29 +18,37 @@ export default function SideRevealPhotos() {
 
     if (!container || !leftPhoto || !rightPhoto || !centerText) return;
 
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      gsap.set(leftPhoto, { x: '-40%', rotateY: 0, rotateZ: 0, scale: 1 });
+      gsap.set(rightPhoto, { x: '40%', rotateY: 0, rotateZ: 0, scale: 1 });
+      gsap.set(centerText, { opacity: 1, scale: 1, y: 0 });
+      return;
+    }
+
     // Create a scrubbed GSAP timeline driven by ScrollTrigger
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container,
         start: 'top bottom', // start animating when container top hits viewport bottom
         end: 'bottom top',   // end when container bottom leaves viewport top
-        scrub: 1,            // smooth transition linked to scroll velocity
+        scrub: 0.5,          // smooth transition linked to scroll velocity (snappier scrub: 0.5)
       }
     });
 
     // Animate photos splitting outwards and rotating in 3D
     tl.to(leftPhoto, {
-      x: '-55%',
-      rotateY: -20,
-      rotateZ: -5,
-      scale: 0.95,
+      x: '-45%',
+      rotateY: -8,
+      rotateZ: -2,
+      scale: 0.98,
       ease: 'power1.out',
     }, 0)
     .to(rightPhoto, {
-      x: '55%',
-      rotateY: 20,
-      rotateZ: 5,
-      scale: 0.95,
+      x: '45%',
+      rotateY: 8,
+      rotateZ: 2,
+      scale: 0.98,
       ease: 'power1.out',
     }, 0)
     .to(centerText, {

@@ -12,39 +12,42 @@ export default function OriginParallax() {
     const el = containerRef.current;
     if (!el) return;
 
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+
     gsap.registerPlugin(ScrollTrigger);
 
     // Staggered column offsets relative to viewport scroll
     const a1 = gsap.to(col1Ref.current, {
+      y: -20,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 0.5,
+      },
+    });
+
+    const a2 = gsap.to(col2Ref.current, {
+      y: -40,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 0.5,
+      },
+    });
+
+    const a3 = gsap.to(col3Ref.current, {
       y: -60,
       ease: 'none',
       scrollTrigger: {
         trigger: el,
         start: 'top bottom',
         end: 'bottom top',
-        scrub: 1,
-      },
-    });
-
-    const a2 = gsap.to(col2Ref.current, {
-      y: -120,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1.5,
-      },
-    });
-
-    const a3 = gsap.to(col3Ref.current, {
-      y: -180,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 2,
+        scrub: 0.5,
       },
     });
 

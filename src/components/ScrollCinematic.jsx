@@ -124,10 +124,20 @@ export default function ScrollCinematic() {
   const slide2Ref  = useRef(null);
   const slide3Ref  = useRef(null);
   const desktopWrapRef = useRef(null);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    // Only run pinned GSAP scroll on desktop
-    if (window.innerWidth < 768) return;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+    const listener = (e) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', listener);
+    return () => mediaQuery.removeEventListener('change', listener);
+  }, []);
+
+  useEffect(() => {
+    // Only run pinned GSAP scroll on desktop and when reduced motion is not preferred
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (window.innerWidth < 768 || reduced) return;
 
     const el = sectionRef.current;
     if (!el) return;
@@ -150,7 +160,7 @@ export default function ScrollCinematic() {
           trigger: el,
           start: 'top top',
           end: '+=250%',
-          scrub: 1.4,
+          scrub: 0.6,
           pin: true,
           anticipatePin: 1,
         },
@@ -173,8 +183,8 @@ export default function ScrollCinematic() {
 
   return (
     <>
-      {/* ── MOBILE: simple stacked cards ── */}
-      <section className="md:hidden bg-black py-16 px-5 relative overflow-hidden">
+      {/* ── MOBILE & REDUCED MOTION: simple stacked cards ── */}
+      <section className={`${prefersReducedMotion ? 'block py-24 px-6 md:px-12 max-w-6xl mx-auto' : 'md:hidden'} bg-black py-16 px-5 relative overflow-hidden`}>
         {/* Section header */}
         <div className="text-center mb-10">
           <p className="font-body text-[10px] tracking-[0.42em] uppercase text-[#C9A84C] mb-3">Our Story</p>
@@ -184,7 +194,7 @@ export default function ScrollCinematic() {
         </div>
         {/* Gold progress line (decorative) */}
         <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-[#C9A84C]/40 to-transparent mb-8" />
-        <div className="flex flex-col gap-5">
+        <div className={prefersReducedMotion ? 'grid grid-cols-1 md:grid-cols-3 gap-8' : 'flex flex-col gap-5'}>
           {CHAPTERS.map((ch) => (
             <ChapterMobile key={ch.num} chapter={ch} />
           ))}
@@ -195,7 +205,7 @@ export default function ScrollCinematic() {
       <div
         ref={sectionRef}
         id="scroll-cinematic"
-        className="hidden md:block relative w-full h-screen bg-black overflow-hidden"
+        className={`${prefersReducedMotion ? 'hidden' : 'hidden md:block'} relative w-full h-screen bg-black overflow-hidden`}
       >
         <div ref={lineRef} className="absolute top-0 left-0 h-[2.5px] bg-[#C9A84C] z-40" style={{ width: '0%' }} />
         <div className="absolute bottom-7 right-8 z-30 flex items-center gap-2 opacity-25 pointer-events-none">

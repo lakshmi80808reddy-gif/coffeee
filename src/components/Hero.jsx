@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Coffee, MapPin, Star, CalendarDays, ShoppingBag, ArrowRight } from 'lucide-react';
 import { gsap } from 'gsap';
 
-function useParallax(speed = 0.12) {
+function useParallax(speed = 0.05) {
   const ref = useRef(null);
   const [off, setOff] = useState(0);
   useEffect(() => {
-    if (window.innerWidth < 768) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (window.innerWidth < 768 || reduced) return;
     const fn = () => {
       if (!ref.current) return;
       const r = ref.current.getBoundingClientRect();
@@ -23,7 +24,8 @@ export default function Hero() {
   const statsRef = useRef(null);
   const [hovered, setHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [pRef, off] = useParallax(0.12);
+  const [pRef, off] = useParallax(0.05);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -32,9 +34,17 @@ export default function Hero() {
     return () => window.removeEventListener('resize', check);
   }, []);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+    const listener = (e) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', listener);
+    return () => mediaQuery.removeEventListener('change', listener);
+  }, []);
+
   // Custom Cursor — desktop only
   useEffect(() => {
-    if (isMobile) return;
+    if (isMobile || prefersReducedMotion) return;
     const cursor = document.getElementById('cursor');
     const trail = document.getElementById('cursor-trail');
     let mx = 0, my = 0, tx = 0, ty = 0;
@@ -58,7 +68,7 @@ export default function Hero() {
       window.removeEventListener('mouseover', onMouseOver);
       cancelAnimationFrame(rafId);
     };
-  }, [isMobile]);
+  }, [isMobile, prefersReducedMotion]);
 
   useEffect(() => {
     if (!statsRef.current) return;
@@ -88,8 +98,12 @@ export default function Hero() {
       `}</style>
 
       {/* Desktop cursor */}
-      <div id="cursor"       className="hidden md:block" style={{ position:'fixed',left:0,top:0,width:'12px',height:'12px',backgroundColor:hovered?'transparent':'#C9A84C',border:hovered?'1.5px solid #C9A84C':'none',borderRadius:'50%',pointerEvents:'none',zIndex:9999,transform:'translate(-100px,-100px)',transition:'background-color 0.2s,border 0.2s' }} />
-      <div id="cursor-trail" className="hidden md:block" style={{ position:'fixed',left:0,top:0,width:'36px',height:'36px',border:'1.5px solid #C9A84C',borderRadius:'50%',pointerEvents:'none',zIndex:9998,opacity:hovered?0:0.6,transform:'translate(-100px,-100px)',transition:'opacity 0.2s' }} />
+      {!prefersReducedMotion && (
+        <>
+          <div id="cursor"       className="hidden md:block" style={{ position:'fixed',left:0,top:0,width:'12px',height:'12px',backgroundColor:hovered?'transparent':'#C9A84C',border:hovered?'1.5px solid #C9A84C':'none',borderRadius:'50%',pointerEvents:'none',zIndex:9999,transform:'translate(-100px,-100px)',transition:'background-color 0.2s,border 0.2s' }} />
+          <div id="cursor-trail" className="hidden md:block" style={{ position:'fixed',left:0,top:0,width:'36px',height:'36px',border:'1.5px solid #C9A84C',borderRadius:'50%',pointerEvents:'none',zIndex:9998,opacity:hovered?0:0.6,transform:'translate(-100px,-100px)',transition:'opacity 0.2s' }} />
+        </>
+      )}
 
       {/* ── Background Video Container (Universal) ── */}
       <div ref={pRef} className="absolute inset-0" style={{ transform: `translateY(${off}px) scale(${isMobile ? 1.08 : 1.18})`, zIndex: 0 }}>

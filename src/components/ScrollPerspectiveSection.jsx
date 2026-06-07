@@ -5,6 +5,12 @@ export default function ScrollPerspectiveSection({ children, id = '', className 
   const [transformStyle, setTransformStyle] = useState({});
 
   useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      setTransformStyle({});
+      return;
+    }
+
     const handleScroll = () => {
       const el = containerRef.current;
       if (!el) return;
@@ -18,9 +24,9 @@ export default function ScrollPerspectiveSection({ children, id = '', className 
       const normalizedDistance = distanceFromCenter / viewportCenter;
       const cappedDistance = Math.max(-1.5, Math.min(1.5, normalizedDistance));
       
-      const rotateX = cappedDistance * -8;
-      const translateZ = Math.abs(cappedDistance) * -60;
-      const scale = 1 - Math.abs(cappedDistance) * 0.04;
+      const rotateX = cappedDistance * -2.5;
+      const translateZ = Math.abs(cappedDistance) * -20;
+      const scale = 1 - Math.abs(cappedDistance) * 0.015;
       const opacity = 1 - Math.abs(cappedDistance) * 0.12;
 
       setTransformStyle({
