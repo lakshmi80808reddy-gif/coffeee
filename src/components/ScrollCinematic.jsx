@@ -72,13 +72,13 @@ function ChapterSlide({ chapter, slideRef, isFirst = false }) {
 
   const imageBlock = (
     <div className={`relative w-[44%] md:w-[46%] h-full shrink-0 ${isLeft ? '' : 'order-2'}`}>
-      <div className="absolute top-24 bottom-10 left-10 right-10 rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,0.85)] overflow-hidden">
+      <div className="absolute top-24 bottom-10 left-10 right-10 rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,0.85)]">
         <img
           src={chapter.img}
           alt={chapter.imgAlt}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover rounded-3xl"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none rounded-3xl" />
       </div>
       <div className="absolute top-28 left-14 w-5 h-5 border-t-2 border-l-2 border-[#C9A84C]/60 pointer-events-none" />
       <div className="absolute bottom-14 right-14 w-5 h-5 border-b-2 border-r-2 border-[#C9A84C]/60 pointer-events-none" />
