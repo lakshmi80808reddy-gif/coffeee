@@ -75,10 +75,10 @@ function ChapterSlide({ chapter, slideRef, isFirst = false }) {
       <img
         src={chapter.img}
         alt={chapter.imgAlt}
-        className="absolute inset-10 w-[calc(100%-5rem)] h-[calc(100%-5rem)] object-cover rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,0.85)]"
+        className="absolute top-24 bottom-10 left-10 right-10 object-cover rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,0.85)]"
       />
-      <div className="absolute inset-10 rounded-3xl bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
-      <div className="absolute top-14 left-14 w-5 h-5 border-t-2 border-l-2 border-[#C9A84C]/60 pointer-events-none" />
+      <div className="absolute top-24 bottom-10 left-10 right-10 rounded-3xl bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute top-28 left-14 w-5 h-5 border-t-2 border-l-2 border-[#C9A84C]/60 pointer-events-none" />
       <div className="absolute bottom-14 right-14 w-5 h-5 border-b-2 border-r-2 border-[#C9A84C]/60 pointer-events-none" />
     </div>
   );
