@@ -54,19 +54,33 @@ export default function Reviews() {
         </p>
         
         {/* Rating hero */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12">
-          <div className="flex flex-col items-center">
-            <p className="font-display text-7xl md:text-8xl font-light text-white leading-tight">4.9</p>
-            <div className="flex gap-1 justify-center mt-3">{Array.from({length:5}).map((_,i)=><Star key={i} size={16} className="fill-amber-400 text-amber-400" />)}</div>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-8 md:gap-10 mb-14 relative z-10">
+          {/* Average Rating Block */}
+          <div className="flex items-center gap-4">
+            <p className="font-body text-5xl md:text-6xl font-bold text-white leading-none">4.9</p>
+            <div className="flex flex-col items-start gap-1.5">
+              <div className="flex gap-0.5">
+                {Array.from({length:5}).map((_,i)=>(
+                  <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
+                ))}
+              </div>
+              <p className="font-body text-[9px] text-white/40 uppercase tracking-[0.2em] font-semibold">Average Rating</p>
+            </div>
           </div>
-          <div className="hidden sm:block gold-line-v h-20 opacity-20" />
-          <div className="text-center sm:text-left">
-            <p className="font-body text-sm text-white/40 mb-1">Based on</p>
-            <p className="font-display text-3xl text-[#c89010] font-semibold">2,400+</p>
-            <p className="font-body text-xs text-white/30">Google Reviews</p>
+
+          {/* Vertical Divider */}
+          <div className="hidden sm:block gold-line-v h-12 opacity-20" />
+
+          {/* Review Count Block */}
+          <div className="flex items-center gap-4">
+            <p className="font-body text-5xl md:text-6xl font-bold text-[#c89010] leading-none">2.4K+</p>
+            <div className="flex flex-col items-start gap-1">
+              <p className="font-body text-[9px] text-white/40 uppercase tracking-[0.2em] font-semibold">Verified Reviews</p>
+              <p className="font-body text-[9px] text-white/20 uppercase tracking-[0.2em] font-medium">On Google Maps</p>
+            </div>
           </div>
         </div>
-        <h2 className="font-display font-light text-4xl md:text-5xl text-white tracking-[-0.02em] mt-8">Real People. Real Coffee.</h2>
+        <h2 className="font-display font-light text-4xl md:text-5xl text-white tracking-[-0.02em]">Real People. Real Coffee.</h2>
       </div>
 
       {/* Cards */}
