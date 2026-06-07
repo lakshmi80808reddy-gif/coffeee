@@ -168,7 +168,7 @@ export default function Hero() {
         <div className="w-full px-6 md:px-12 py-5 md:py-8 flex justify-between items-center" ref={statsRef}>
           {[{ val: '50+', label: 'Varieties' }, { val: '2K+', label: 'Customers' }, { val: '4.9★', label: 'Rating' }, { val: '93°C', label: 'Precision' }].map((s, i) => (
             <div key={s.label} className={`flex-1 text-center md:text-left ${i !== 0 ? 'border-l border-[#C9A84C]/30 pl-4 md:pl-6' : ''}`}>
-              <p className="font-display text-lg md:text-3xl font-bold text-[#C9A84C]">{s.val}</p>
+              <p className="font-body text-xl md:text-3xl font-bold text-[#C9A84C] tracking-tight">{s.val}</p>
               <p className="font-body text-[8px] md:text-[9px] text-white/40 uppercase tracking-widest mt-1">{s.label}</p>
             </div>
           ))}
